@@ -27,6 +27,19 @@ struct node {
 	}
 };
 
+int getSizeNode(node* n, int &sum)
+{
+	int valueTot = n->value;
+	if (n->childs.size() > 0)
+		for (int i = 0; i < n->childs.size(); i++)
+			valueTot += getSizeNode(n->childs[i], sum);
+
+	if (valueTot <= 100000)
+		sum += valueTot;
+
+	return valueTot;
+}
+
 int updateSizeNode(node* n, int &sum)
 {
 	int valueTot = n->value;
@@ -94,11 +107,12 @@ int main() {
 	}
 
 	node* nearer = &dad;
+	cout << getSizeNode(&dad, sum) << endl;
 	int tot = updateSizeNode(&dad, sum);
 	int limit = 30000000 - (70000000 - tot);
 	getSizeNodeToDelete(&dad, limit, &nearer);
 
-	cout << tot - nearer->value << endl;
+	cout << nearer->value << endl;
 
 	system("PAUSE");
 	return 0;
