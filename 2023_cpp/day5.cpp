@@ -2,24 +2,7 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
-
-vector<string> splitBy(const string& row_to_split, const char splitC)
-{
-    vector<string> splitted;
-    splitted.push_back("");
-
-    for (char c : row_to_split)
-    {
-        if (c == splitC) {
-            if (splitted[splitted.size() - 1].size() > 0)
-                splitted.push_back("");
-        }
-        else
-            splitted[splitted.size() - 1] += c;
-    }
-
-    return splitted;
-}
+#include "../../baseutil.h"
 
 bool isNum2(char c) {
     return c >= '0' && c <= '9';
@@ -42,7 +25,7 @@ long long getNumber(string s) {
 
 int Day5::doWork(const vector<string>& rows)
 {
-    vector<string> splitted = splitBy(rows[0], ' ');
+    vector<string> splitted = baseutil::splitBy(rows[0], ' ');
     vector<vector<vector<double>>> listconverted;
 
     for (auto row : rows) {
@@ -52,7 +35,7 @@ int Day5::doWork(const vector<string>& rows)
             continue;
         }
 
-        vector<string> rsplit = splitBy(row, ' ');
+        vector<string> rsplit = baseutil::splitBy(row, ' ');
 
         vector<double> fill;
         fill.push_back(getNumber(rsplit[0]));
